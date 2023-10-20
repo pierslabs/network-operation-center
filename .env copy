@@ -1,0 +1,5 @@
+PORT=3001
+MAILER_EMAIL=test@test.com
+MAILER_SECERT=123456
+
+PROD=true
