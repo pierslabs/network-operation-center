@@ -3,17 +3,16 @@ import { LogEntity, LogSeveritylevel } from '../../domain/entities/log.entity';
 import fs from 'fs';
 
 export class FileSytemDataSource implements LogDataSource {
-  private readonly logPath = 'logs';
+  private readonly logPath = './logs';
   private readonly allLogsPath = 'logs/logs-all.log';
   private readonly mediumLogsPath = 'logs/logs-medium.log';
   private readonly highLogsPath = 'logs/logs-high.log';
 
-  contructor() {
+  constructor() {
     this.createLogsfiles();
   }
 
   private createLogsfiles = () => {
-    console.log('entrando a crear logs');
     if (!fs.existsSync(this.logPath)) {
       fs.mkdirSync(this.logPath);
     }
@@ -28,7 +27,7 @@ export class FileSytemDataSource implements LogDataSource {
 
   async saveLog(newLog: LogEntity): Promise<void> {
     const logAsJson = `${JSON.stringify(newLog)}\n`;
-    console.log('Data fil system', this.allLogsPath);
+
     fs.appendFileSync(this.allLogsPath, logAsJson);
 
     switch (newLog.level) {
