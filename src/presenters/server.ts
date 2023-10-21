@@ -16,17 +16,17 @@ export class Server {
   public static start() {
     const url = 'http://localhost:3000';
     const url2 = 'https://www.google.com';
+    console.log('Server started.....');
+    // new SendLogsEmail(emailService, fileSystemLogRepository).execute([
+    //   'pedrolosasp@gmail.com',
+    // ]);
 
-    new SendLogsEmail(emailService, fileSystemLogRepository).execute([
-      'pedrolosasp@gmail.com',
-    ]);
-
-    CronService.createCron('*/5 * * * * *', () => {
-      new CheckService(
-        fileSystemLogRepository,
-        () => console.log(`CheckService use case ${url2} is ok`),
-        (error) => console.error(error)
-      ).execute(url2);
-    });
+    // CronService.createCron('*/5 * * * * *', () => {
+    //   new CheckService(
+    //     fileSystemLogRepository,
+    //     () => console.log(`CheckService use case ${url2} is ok`),
+    //     (error) => console.error(error)
+    //   ).execute(url2);
+    // });
   }
 }
