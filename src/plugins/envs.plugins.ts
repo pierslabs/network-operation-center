@@ -4,6 +4,7 @@ import * as env from 'env-var';
 export const envs = {
   PORT: env.get('PORT').required().asPortNumber(),
   MAILER_EMAIL: env.get('MAILER_EMAIL').required().asEmailString(),
-  MAILER_SECERT: env.get('MAILER_SECERT').required().asString(),
+  MAILER_SECERT: env.get('MAILER_SECRET').required().asString(),
   PROD: env.get('PROD').required().asBool(),
+  MAILER_SERVICE: env.get('MAILER_SERVICE').required().asString(),
 };

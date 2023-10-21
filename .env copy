@@ -1,5 +1,7 @@
-PORT=3001
-MAILER_EMAIL=test@test.com
-MAILER_SECERT=123456
+PORT=3000
+
+MAILER_SERVICE=gmail
+MAILER_EMAIL=fake@gmail.com
+MAILER_SECRET=fakepass
 
 PROD=true
