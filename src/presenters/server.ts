@@ -17,6 +17,7 @@ export class Server {
     const url = 'http://localhost:3000';
     const url2 = 'https://www.google.com';
     console.log('Server started.....');
+
     // new SendLogsEmail(emailService, fileSystemLogRepository).execute([
     //   'pedrolosasp@gmail.com',
     // ]);
