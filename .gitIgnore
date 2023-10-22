@@ -3,3 +3,5 @@
 /dist
 .env
 mongo_data/
+/logs/
+/logs/*
