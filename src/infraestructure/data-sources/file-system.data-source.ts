@@ -18,7 +18,7 @@ export class FileSytemDataSource implements LogDataSource {
     }
     [this.allLogsPath, this.mediumLogsPath, this.highLogsPath].forEach(
       (path) => {
-        if (!fs.existsSync(path)) return;
+        if (fs.existsSync(path)) return;
         fs.writeFileSync(path, '');
       }
     );
@@ -34,10 +34,11 @@ export class FileSytemDataSource implements LogDataSource {
         return;
       case LogSeveritylevel.medium:
         fs.appendFileSync(this.mediumLogsPath, logAsJson);
+        break;
 
       case LogSeveritylevel.high:
         fs.appendFileSync(this.highLogsPath, logAsJson);
-
+        break;
       default:
         break;
     }
@@ -59,7 +60,7 @@ export class FileSytemDataSource implements LogDataSource {
 
   private getLogsFromFile = (path: string): LogEntity[] => {
     const content = fs.readFileSync(path, 'utf-8');
-
+    if (content === '') return [];
     const logs = content.split('\n').map(LogEntity.fromJson);
 
     return logs;

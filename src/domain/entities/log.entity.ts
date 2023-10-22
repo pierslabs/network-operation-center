@@ -31,9 +31,16 @@ export class LogEntity {
 
   // Factory contructor
   static fromJson = (json: string): LogEntity => {
+    json = json === '' ? '{}' : json;
     const { level, message, timestamp, origin } = JSON.parse(json);
     const log = new LogEntity({ level, message, origin, timestamp });
     log.timestamp = new Date(timestamp);
     return log;
   };
+
+  static fromObject(object: { [key: string]: any }): LogEntity {
+    const { level, message, origin, timestamp } = object;
+    const log = new LogEntity({ level, message, origin, timestamp });
+    return log;
+  }
 }
