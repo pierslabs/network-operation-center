@@ -2,6 +2,9 @@
 /node_modules
 /dist
 .env
+
 mongo_data/
+postgres_data/
+
 /logs/
 /logs/*
