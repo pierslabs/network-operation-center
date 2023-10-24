@@ -1,6 +1,7 @@
 import { LogSeveritylevel } from '../domain/entities/log.entity';
 import { LogRepository } from '../domain/repositories/log.repository';
 import { CheckService } from '../domain/use-cases/checks/check.service';
+import { CheckServiceMultiple } from '../domain/use-cases/checks/check.service-multiple';
 import { SendLogsEmail } from '../domain/use-cases/email/send-logs-email';
 import { FileSytemDataSource } from '../infraestructure/data-sources/file-system.data-source';
 import { MongoLogoDatatSource } from '../infraestructure/data-sources/mongo-log.data-source';
@@ -9,11 +10,9 @@ import { LogRepositoryImpl } from '../infraestructure/repositories/log.repositor
 import { CronService } from './cron/cron.service';
 import { EmailService } from './email/email.service';
 
-const logRepository = new LogRepositoryImpl(
-  // new FileSytemDataSource()
-  // new MongoLogDatatSource()
-  new PostgreLogsDataSource()
-);
+const FSLogRepository = new LogRepositoryImpl(new FileSytemDataSource());
+const MongoLogRepository = new LogRepositoryImpl(new MongoLogoDatatSource());
+const PostgreLogRepository = new LogRepositoryImpl(new PostgreLogsDataSource());
 
 const emailService = new EmailService();
 
@@ -28,8 +27,8 @@ export class Server {
     // ]);
 
     CronService.createCron('*/5 * * * * *', () => {
-      new CheckService(
-        logRepository,
+      new CheckServiceMultiple(
+        [FSLogRepository, MongoLogRepository, PostgreLogRepository],
         () => console.log(`CheckService use case ${url2} is ok`),
         (error) => console.error(error)
       ).execute(url2);
